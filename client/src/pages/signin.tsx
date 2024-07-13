@@ -53,7 +53,7 @@ export function SignIn() {
         navigate("/");
       }
     } catch (error) {
-      dispatch(signInFailure("Something went wrong"))
+      return dispatch(signInFailure("Something went wrong"))
     } 
   };
 
