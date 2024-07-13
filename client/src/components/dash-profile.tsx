@@ -30,8 +30,6 @@ export function DashProfile() {
         <TextInput
           type="password"
           id="password"
-          placeholder="********"
-          defaultValue={currentUser.username}
         />
         <Button type="submit" gradientDuoTone="purpleToBlue" outline>Update</Button>
       </form>
