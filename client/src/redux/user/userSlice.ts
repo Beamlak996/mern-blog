@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
-    currentUser: any
-    error: string | null
-    loading: boolean
+  currentUser: any;
+  error: string | null;
+  loading: boolean;
 }
 
 const initialState: UserState = {
-    currentUser: null,
-    error: null,
-    loading: false
-}
+  currentUser: null,
+  error: null,
+  loading: false,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -31,21 +31,44 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
     updateUserStart: (state) => {
-      state.loading = true
-      state.error = null
+      state.loading = true;
+      state.error = null;
     },
     updateUserSuccess: (state, action) => {
-      state.currentUser = action.payload
-      state.loading = false
-      state.error = null
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
     },
-    updateUserFailure: (state, action)=> {
-      state.error = action.payload
-      state.loading = false
-    }
+    updateUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    deleteUserStart: (state) => {
+      state.error = null;
+      state.loading = true;
+    },
+    deleteUserSuccess: (state) => {
+      state.currentUser = null;
+      state.error = null;
+      state.loading = false;
+    },
+    deleteUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { signInFailure, signInStart, signInSuccess, updateUserStart, updateUserFailure, updateUserSuccess } = userSlice.actions
+export const {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+  updateUserStart,
+  updateUserFailure,
+  updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+} = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;
