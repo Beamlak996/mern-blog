@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { DashSidebar } from "../components/dash-sidebar";
 import { DashProfile } from "../components/dash-profile";
+import DashPosts from "../components/dash-posts";
 
 export function Dashobard() {
   const [tab, setTab] = useState<string>("");
@@ -22,7 +23,11 @@ export function Dashobard() {
       <div className="md:w-56">
         <DashSidebar />
       </div>
+      {/* profile */}
       {tab === "profile" && <DashProfile />}
+
+      {/* posts */}
+      {tab === "posts" && <DashPosts />}
     </div>
   );
 }
