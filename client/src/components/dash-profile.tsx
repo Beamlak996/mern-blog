@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -6,9 +10,6 @@ import {
   Spinner,
   Modal,
 } from "flowbite-react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 import {
@@ -82,41 +83,39 @@ export function DashProfile() {
   const handleDeleteUser = async () => {
     setShowModal(false);
     try {
-      dispatch(deleteUserStart())
+      dispatch(deleteUserStart());
 
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE'
-      })
-      const data = await res.json()
+        method: "DELETE",
+      });
+      const data = await res.json();
 
-      if(!res.ok) {
-        dispatch(deleteUserFailure(data.message))
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
       } else {
-        dispatch(deleteUserSuccess())
+        dispatch(deleteUserSuccess());
       }
-
     } catch (error) {
-      dispatch(deleteUserFailure("Something went wrong!"))
+      dispatch(deleteUserFailure("Something went wrong!"));
     }
   };
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', {
-        method: "POST"
-      })
-      const data = await res.json()
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
 
-      if(!res.ok) {
-        console.log(data.message)
+      if (!res.ok) {
+        console.log(data.message);
       } else {
-        dispatch(signoutSuccess())
+        dispatch(signoutSuccess());
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="max-w-lg mx-auto w-full p-3">
@@ -153,18 +152,31 @@ export function DashProfile() {
           {loading ? (
             <div className="space-x-2">
               <Spinner size="sm" />
-              <span>loading...</span>
+              <span>updating...</span>
             </div>
           ) : (
             "Update"
           )}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to="/create-post">
+            <Button
+              type="button"
+              gradientDuoTone={"purpleToPink"}
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-rose-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">
           Delete Account
         </span>
-        <span onClick={handleSignout} className="cursor-pointer">Sign out</span>
+        <span onClick={handleSignout} className="cursor-pointer">
+          Sign out
+        </span>
       </div>
       {updateSuccess && (
         <Alert color="success" className="mt-5">
