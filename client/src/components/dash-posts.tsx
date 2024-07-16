@@ -5,9 +5,26 @@ import { Link } from "react-router-dom";
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state: any) => state.user);
-  const [userPosts, setUserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState<any>([]);
+  const [showMore, setShowMore] = useState(true)
 
-  console.log(userPosts);
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length
+    try {
+      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+
+      const data = await res.json()
+
+      if(res.ok) {
+        setUserPosts((prev: any)=> [...prev, ...data.posts])
+        if(data.posts.length < 9) {
+          setShowMore(false)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -17,6 +34,9 @@ export default function DashPosts() {
 
         if (res.ok) {
           setUserPosts(data.posts);
+          if(data.posts.length < 9) {
+            setShowMore(false)
+          }
         }
       } catch (error) {
         console.log(error);
@@ -84,6 +104,13 @@ export default function DashPosts() {
               </Table.Body>
             ))}
           </Table>
+          {
+            showMore && (
+              <button onClick={handleShowMore} className="w-full text-center text-teal-500 self-center text-sm py-7" >
+                Show more
+              </button>
+            )
+          }
         </>
       ) : (
         <p>You have no posts yet!</p>
