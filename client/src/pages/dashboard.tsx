@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { DashSidebar } from "../components/dash-sidebar";
 import { DashProfile } from "../components/dash-profile";
 import DashPosts from "../components/dash-posts";
+import DashUsers from "../components/dash-users";
 
 export function Dashobard() {
   const [tab, setTab] = useState<string>("");
@@ -28,6 +29,9 @@ export function Dashobard() {
 
       {/* posts */}
       {tab === "posts" && <DashPosts />}
+
+      {/* users */}
+      {tab === "users" && <DashUsers />}
     </div>
   );
 }
