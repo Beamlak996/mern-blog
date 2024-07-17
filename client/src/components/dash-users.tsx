@@ -63,7 +63,7 @@ export default function DashUsers() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/user/deleteuser/${userIdToDelete}/${currentUser._id}`,
+        `/api/user/delete/${userIdToDelete}`,
         {
           method: "DELETE",
         }
