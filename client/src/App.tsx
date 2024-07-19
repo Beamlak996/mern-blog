@@ -12,6 +12,7 @@ import PrivateRoute from "./components/private-route";
 import AdminPrivateRoute from "./components/admin-private-route";
 import { CreatePost } from "./pages/create-post";
 import { UpdatePost } from "./pages/update-post";
+import { PostPage } from "./components/post-page";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path={`/update-post/:postId`} element={<UpdatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <FooterCom />
     </BrowserRouter>
